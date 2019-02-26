@@ -1,4 +1,4 @@
-package net.codejava.javaee.DAO;
+package net.codejava.javaee.dao;
 
 import net.codejava.javaee.entity.User;
 import net.codejava.javaee.util.DBInfo;

@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.DAO.BookDAO;
+import net.codejava.javaee.dao.BookDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;

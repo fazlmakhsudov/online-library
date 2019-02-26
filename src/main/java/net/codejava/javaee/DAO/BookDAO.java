@@ -1,4 +1,4 @@
-package net.codejava.javaee.DAO;
+package net.codejava.javaee.dao;
 
 import net.codejava.javaee.entity.Book;
 import net.codejava.javaee.util.DBInfo;
@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * AbstractDAO.java
- * This DAO class provides CRUD database operations for the table book
+ * This dao class provides CRUD database operations for the table book
  * in the database.
  *
  * @author www.codejava.net

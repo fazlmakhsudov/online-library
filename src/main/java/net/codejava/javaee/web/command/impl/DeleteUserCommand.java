@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.DAO.UserDAO;
+import net.codejava.javaee.dao.UserDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
