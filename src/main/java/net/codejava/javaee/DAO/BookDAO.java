@@ -1,5 +1,6 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.DAO;
 
+import net.codejava.javaee.entity.Book;
 import net.codejava.javaee.util.DBInfo;
 import net.codejava.javaee.util.DBUtil;
 

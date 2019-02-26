@@ -1,4 +1,4 @@
-package net.codejava.javaee.userstore;
+package net.codejava.javaee.entity;
 
 public class User {
     private int id;

@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.bookstore.Book;
-import net.codejava.javaee.bookstore.BookDAO;
+import net.codejava.javaee.entity.Book;
+import net.codejava.javaee.DAO.BookDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -27,7 +27,7 @@ public class ListBooksCommand implements Command {
         request.setAttribute("command", "List Books Command");
         String forward;
         if (Method.isGet(request)) {
-            forward = Path.BOOK_LIST_PAGE;
+            forward = Path.PAGE_BOOK_LIST;
             try {
                 List<Book> listBook = new BookDAO().listAllUsers();
                 request.setAttribute("listBook", listBook);

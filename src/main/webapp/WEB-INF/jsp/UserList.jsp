@@ -14,9 +14,9 @@
     <center>
         <h1>Users Management</h1>
         <h2>
-            <a href="command?action=newUser">Add New User</a>
+            <a href="controller?action=createUser">Add New User</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="command?action=listUsers">List All Users</a>
+            <a href="controller?action=listUsers">List All Users</a>
 
         </h2>
     </center>
@@ -37,9 +37,9 @@
                     <td><c:out value="${user.password}" /></td>
                     <td><c:out value="${user.email}" /></td>
                     <td>
-                        <a href="command?action=editUser&id=<c:out value='${user.id}' />">Edit</a>
+                        <a href="controller?action=updateUser&id=<c:out value='${user.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="command?action=deleteUser&id=<c:out value='${user.id}' />">Delete</a>
+                        <a href="controller?action=deleteUser&id=<c:out value='${user.id}' />">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -11,19 +11,19 @@ public final class Path {
 
     public static final String PAGE_SIGNUP = "/WEB-INF/jsp/signup.jsp";
 
-    public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/error.jsp";
-    public static final String FORWARD_USER_LIST_PAGE = "Store/command?action=listUsers";
-    public static final String FORWARD_BOOK_LIST_PAGE = "Store/command?action=listbBooks";
-    public static final String USER_LIST_PAGE = "/user/UserList.jsp";
-    public static final String USER_FORM_PAGE = "/user/UserForm.jsp";
-    public static final String BOOK_LIST_PAGE = "/book/BookList.jsp";
-    public static final String BOOK_FORM_PAGE = "/book/BookForm.jsp";
+    public static final String PAGE_ERROR = "/WEB-INF/jsp/error.jsp";
+
+    public static final String PAGE_USER_LIST = "/WEB-INF/jsp/UserList.jsp";
+    public static final String PAGE_USER_FORM = "/WEB-INF/jsp/UserForm.jsp";
+    public static final String PAGE_BOOK_LIST = "/WEB-INF/jsp/BookList.jsp";
+    public static final String PAGE_BOOK_FORM = "/WEB-INF/jsp/BookForm.jsp";
 
     /*
      * Commands
      */
-    public static final String COMMAND_MAIN = "command?action=main";
-
+    public static final String COMMAND_MAIN = "controller?action=main";
+    public static final String COMMAND_USER_LIST = "controller?action=listUsers";
+    public static final String COMMAND_BOOK_LIST = "controller?action=listBooks";
     private Path() {
     }
 

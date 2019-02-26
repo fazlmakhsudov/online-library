@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 @WebServlet(
         name = "controller",
-        urlPatterns = "/command"
+        urlPatterns = "/controller"
 )
 public class Controller extends HttpServlet {
 
@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
         LOG.info("Obtained command --> " + command);
 
         // execute command and get forward address
-        String forward = Path.PAGE_ERROR_PAGE;
+        String forward = Path.PAGE_ERROR;
         try {
             forward = command.execute(request, response);
         } catch (AppException ex) {
@@ -67,7 +67,7 @@ public class Controller extends HttpServlet {
          * Forward if page (/WEB-INF/jsp/home.jsp)
          *
          */
-        if (forward.contains("command?action=main")) {
+        if (forward.contains("controller?action")) {
             response.sendRedirect(forward);
         } else {
             request.getRequestDispatcher(forward).forward(request, response);

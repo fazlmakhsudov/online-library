@@ -1,5 +1,6 @@
-package net.codejava.javaee.userstore;
+package net.codejava.javaee.DAO;
 
+import net.codejava.javaee.entity.User;
 import net.codejava.javaee.util.DBInfo;
 import net.codejava.javaee.util.DBUtil;
 

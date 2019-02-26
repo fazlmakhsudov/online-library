@@ -14,18 +14,18 @@
     <center>
         <h1>Users Management</h1>
         <h2>
-            <a href="command?action=newUser">Add New User</a>
+            <a href="controller?action=createUser">Add New User</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="command?action=listUsers">List All Users</a>
+            <a href="comtroller?action=listUsers">List All Users</a>
 
         </h2>
     </center>
     <div align="center">
         <c:if test="${user != null}">
-            <form action="command?action=updateUser" method="post">
+            <form action="controller?action=updateUser" method="post">
         </c:if>
         <c:if test="${user == null}">
-            <form action="command?action=createUser" method="post">
+            <form action="controller?action=createUser" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>

@@ -22,15 +22,11 @@ public final class CommandContainer {
         commands.put("updateUser", new UpdateUserCommand());
         commands.put("deleteUser", new DeleteUserCommand());
         commands.put("listUsers", new ListUsersCommand());
-        commands.put("editUser", new ShowEditUserFormCommand());
-        commands.put("newUser", new ShowNewUserForm());
         commands.put("createBook", new CreateBookCommand());
         commands.put("readBook", new ReadBookCommand());
         commands.put("updateBook", new UpdateBookCommand());
         commands.put("deleteBook", new DeleteBookCommand());
         commands.put("listBooks", new ListBooksCommand());
-        commands.put("editBook", new ShowEditBookFormCommand());
-        commands.put("newBook", new ShowNewBookForm());
         LOG.info("Command container was successfully initialized");
         LOG.info("Number of commands --> " + commands.size());
     }

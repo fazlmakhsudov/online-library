@@ -25,7 +25,7 @@ public class NoCommand implements Command, Serializable {
         LOG.info(String.format("Set the request attribute: errorMessage --> %s", errorMessage));
 
         LOG.info("Command finished");
-        return Path.PAGE_ERROR_PAGE;
+        return Path.PAGE_ERROR;
     }
 
 }

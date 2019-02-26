@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.userstore.User;
-import net.codejava.javaee.userstore.UserDAO;
+import net.codejava.javaee.entity.User;
+import net.codejava.javaee.DAO.UserDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -26,7 +26,7 @@ public class DeleteUserCommand implements Command {
         request.setAttribute("command", "Delete User Command");
         String forward;
         if (Method.isGet(request)) {
-            forward = Path.USER_LIST_PAGE;
+            forward = Path.COMMAND_USER_LIST;
             int id = Integer.parseInt(request.getParameter("id"));
             User user = new User(id);
             try {

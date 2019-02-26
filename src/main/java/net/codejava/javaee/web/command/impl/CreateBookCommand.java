@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.bookstore.Book;
-import net.codejava.javaee.bookstore.BookDAO;
+import net.codejava.javaee.entity.Book;
+import net.codejava.javaee.DAO.BookDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -23,10 +23,11 @@ public class CreateBookCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.info("Command starts");
         LOG.info("Set request attribute: command index");
-        request.setAttribute("command", "Create Book Command");
+
         String forward;
         if (Method.isPost(request)) {
-            forward = Path.FORWARD_BOOK_LIST_PAGE;
+            request.setAttribute("command", "Create Book Command");
+            forward = Path.COMMAND_BOOK_LIST;
             String title = request.getParameter("title");
             String author = request.getParameter("author");
             float price = Float.parseFloat(request.getParameter("price"));
@@ -38,7 +39,8 @@ public class CreateBookCommand implements Command {
             }
             //todo process post
         } else {
-            forward = Path.COMMAND_MAIN;
+            request.setAttribute("command", "New Book Form Command");
+            forward = Path.PAGE_BOOK_FORM;
             //todo process get
         }
         LOG.info("Command finished");

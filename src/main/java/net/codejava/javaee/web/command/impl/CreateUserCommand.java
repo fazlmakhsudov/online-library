@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.userstore.User;
-import net.codejava.javaee.userstore.UserDAO;
+import net.codejava.javaee.entity.User;
+import net.codejava.javaee.DAO.UserDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -23,10 +23,11 @@ public class CreateUserCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.info("Command starts");
         LOG.info("Set request attribute: command index");
-        request.setAttribute("command", "Create User Command");
+
         String forward;
         if (Method.isPost(request)) {
-            forward = Path.FORWARD_USER_LIST_PAGE;
+            request.setAttribute("command", "Create User Command");
+            forward = Path.COMMAND_USER_LIST;
             String name = request.getParameter("name");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
@@ -38,7 +39,8 @@ public class CreateUserCommand implements Command {
             }
             //todo process post
         } else {
-            forward = Path.COMMAND_MAIN;
+            request.setAttribute("command", "New User Form Command");
+            forward = Path.PAGE_USER_FORM;
             //todo process get
         }
         LOG.info("Command finished");

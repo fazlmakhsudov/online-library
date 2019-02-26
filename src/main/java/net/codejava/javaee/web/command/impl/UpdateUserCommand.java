@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.userstore.User;
-import net.codejava.javaee.userstore.UserDAO;
+import net.codejava.javaee.entity.User;
+import net.codejava.javaee.DAO.UserDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -23,10 +23,11 @@ public class UpdateUserCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.info("Command starts");
         LOG.info("Set request attribute: command index");
-        request.setAttribute("command", "Update User Command");
+
         String forward;
         if (Method.isPost(request)) {
-            forward = Path.USER_LIST_PAGE;
+            request.setAttribute("command", "Update User Command");
+            forward = Path.COMMAND_USER_LIST;
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
             String password = request.getParameter("password");
@@ -39,7 +40,15 @@ public class UpdateUserCommand implements Command {
             }
             //todo process post
         } else {
-            forward = Path.COMMAND_MAIN;
+            request.setAttribute("command", "Edit User Form Command");
+            forward = Path.PAGE_USER_FORM;
+            int id = Integer.parseInt(request.getParameter("id"));
+            try {
+                User existingUser = new UserDAO().getUser(id);
+                request.setAttribute("user", existingUser);
+            } catch (SQLException ex) {
+                throw new ServletException(ex);
+            }
             //todo process get
         }
         LOG.info("Command finished");

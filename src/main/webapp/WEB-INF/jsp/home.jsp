@@ -13,9 +13,9 @@
         <div class="sidebar content-box" style="display: block;">
             <ul class="nav">
                 <!-- Main menu -->
-                <li class="current"><a href="command?action=main">Home</a></li>
-                <li><a href="command?action=login">Login</a></li>
-                <li><a href="command?action=registration">Sign up</a></li>
+                <li class="current"><a href="controller?action=main">Home</a></li>
+                <li><a href="controller?action=login">Login</a></li>
+                <li><a href="controller?action=registration">Sign up</a></li>
 
             </ul>
          </div>

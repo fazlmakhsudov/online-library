@@ -15,18 +15,18 @@
     <center>
         <h1>Books Management</h1>
         <h2>
-            <a href="command?action=newBook">Add New Book</a>
+            <a href="controller?action=createBook">Add New Book</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="command?action=listBooks">List All Books</a>
+            <a href="controller?action=listBooks">List All Books</a>
 
         </h2>
     </center>
     <div align="center">
         <c:if test="${book != null}">
-            <form action="command?action=updateBook" method="post">
+            <form action="controller?action=updateBook" method="post">
         </c:if>
         <c:if test="${book == null}">
-            <form action="command?action=createBook" method="post">
+            <form action="controller?action=createBook" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>

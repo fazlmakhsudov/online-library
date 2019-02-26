@@ -13,7 +13,7 @@
                 <div class="box">
                     <div class="content-wrap">
                         <h6>Sign Up</h6>
-                        <form method="post" action="command?action=registration">
+                        <form method="post" action="controller?action=registration">
                         <input class="form-control" type="text" placeholder="E-mail address">
                         <input class="form-control" type="password" placeholder="Password">
                         <input class="form-control" type="password" placeholder="Confirm Password">

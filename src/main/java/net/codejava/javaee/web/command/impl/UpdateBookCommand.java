@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.bookstore.Book;
-import net.codejava.javaee.bookstore.BookDAO;
+import net.codejava.javaee.entity.Book;
+import net.codejava.javaee.DAO.BookDAO;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -23,10 +23,11 @@ public class UpdateBookCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.info("Command starts");
         LOG.info("Set request attribute: command index");
-        request.setAttribute("command", "Update Book Command");
+
         String forward;
         if (Method.isPost(request)) {
-            forward = Path.BOOK_LIST_PAGE;
+            request.setAttribute("command", "Update Book Command");
+            forward = Path.COMMAND_BOOK_LIST;
             int id = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String author = request.getParameter("author");
@@ -41,7 +42,17 @@ public class UpdateBookCommand implements Command {
             }
             //todo process post
         } else {
-            forward = Path.COMMAND_MAIN;
+            request.setAttribute("command", "Edit Book Form Command");
+            forward = Path.PAGE_BOOK_FORM;
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            try {
+                Book existingBook = new BookDAO().getBook(id);
+                request.setAttribute("book", existingBook);
+            } catch (SQLException ex) {
+                throw new ServletException(ex);
+            }
+
             //todo process get
         }
         LOG.info("Command finished");
