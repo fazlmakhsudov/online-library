@@ -1,5 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
+import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.entity.User;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -8,8 +10,10 @@ import net.codejava.javaee.web.exception.AppException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class LoginCommand implements Command, Serializable {
@@ -25,11 +29,24 @@ public class LoginCommand implements Command, Serializable {
         request.setAttribute("command", "main");
         String forward;
         if (Method.isPost(request)) {
-            forward = Path.COMMAND_MAIN;
-            //todo process post
+            HttpSession session = request.getSession();
+            String email = request.getParameter("email");
+            LOG.info("Request parameter: email --> " + email);
+            String password = request.getParameter("password");
+            User user = null;
+            try {
+                user = new UserDAO().getUser(email, password);
+            } catch (SQLException ex) {
+                throw new ServletException(ex);
+            }
+            if (user != null) {
+                session.setAttribute("userRole", user.getRole());
+                forward = Path.COMMAND_MAIN;
+            } else {
+                forward = Path.PAGE_LOGIN;
+            }
         } else {
             forward = Path.PAGE_LOGIN;
-            //todo process get
         }
         LOG.info("Command finished");
         return forward;

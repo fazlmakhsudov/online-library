@@ -14,9 +14,9 @@
                     <div class="content-wrap">
                         <h6>Sign Up</h6>
                         <form method="post" action="controller?action=registration">
-                        <input class="form-control" type="text" placeholder="E-mail address">
-                        <input class="form-control" type="password" placeholder="Password">
-                        <input class="form-control" type="password" placeholder="Confirm Password">
+                        <input class="form-control" type="text" name="email" placeholder="E-mail address">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                        <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password">
                         <div class="action">
                                <button class="btn btn-primary" type="submit">Sign up</button>
                         </div>

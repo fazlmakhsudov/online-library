@@ -3,6 +3,7 @@ package net.codejava.javaee.dao;
 import net.codejava.javaee.entity.User;
 import net.codejava.javaee.util.DBInfo;
 import net.codejava.javaee.util.DBUtil;
+import net.codejava.javaee.web.filter.Role;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,14 +19,30 @@ public class UserDAO {
         this.DBUtil = new DBUtil(DBInfo.getJdbcURL(), DBInfo.getJdbcUsername(), DBInfo.getJdbcPassword());
     }
 
+    public boolean insertUser(String email, String password) throws SQLException {
+        String sql = "INSERT INTO user (name, password, email, role) VALUES (?, ?, ?, ?)";
+        DBUtil.connect();
+
+        PreparedStatement statement = DBUtil.getJdbcConnection().prepareStatement(sql);
+        statement.setString(1, email.replaceFirst("@.+", ""));
+        statement.setString(2, password);
+        statement.setString(3, email);
+        statement.setString(4, Role.CLIENT.getName());
+        boolean rowInserted = statement.executeUpdate() > 0;
+        statement.close();
+        DBUtil.disconnect();
+        return rowInserted;
+    }
+
     public boolean insertUser(User user) throws SQLException {
-        String sql = "INSERT INTO user (name, password, email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO user (name, password, email, role) VALUES (?, ?, ?, ?)";
         DBUtil.connect();
 
         PreparedStatement statement = DBUtil.getJdbcConnection().prepareStatement(sql);
         statement.setString(1, user.getName());
         statement.setString(2, user.getPassword());
         statement.setString(3, user.getEmail());
+        statement.setString(4, Role.CLIENT.getName());
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         DBUtil.disconnect();
@@ -106,8 +123,32 @@ public class UserDAO {
             String name = resultSet.getString("name");
             String password = resultSet.getString("password");
             String email = resultSet.getString("email");
+            Role role = Role.getRole(resultSet.getString("role"));
+            user = new User(id, name, password, email, role);
+        }
 
-            user = new User(id, name, password, email);
+        resultSet.close();
+        statement.close();
+
+        return user;
+    }
+
+    public User getUser(String email, String password) throws SQLException {
+        User user = null;
+        String sql = "SELECT * FROM user WHERE email = ? and password = ?";
+
+        DBUtil.connect();
+
+        PreparedStatement statement = DBUtil.getJdbcConnection().prepareStatement(sql);
+        statement.setString(1, email);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            String name = resultSet.getString("name");
+            int id = Integer.parseInt(resultSet.getString("user_id"));
+            Role role = Role.getRole(resultSet.getString("role"));
+            user = new User(id, name, password, email, role);
         }
 
         resultSet.close();

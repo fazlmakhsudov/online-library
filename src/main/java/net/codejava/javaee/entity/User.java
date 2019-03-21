@@ -1,13 +1,27 @@
 package net.codejava.javaee.entity;
 
+import net.codejava.javaee.web.filter.Role;
+
 public class User {
     private int id;
     private String name;
     private String password;
     private String email;
+    private Role role;
+
+    public User() {
+    }
 
     public String getPassword() {
         return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setPassword(String password) {
@@ -19,6 +33,14 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
+    }
+
+    public User(int id, String name, String password, String email, Role role) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     public int getId() {

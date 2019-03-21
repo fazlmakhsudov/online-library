@@ -12,10 +12,10 @@
             <div class="login-wrapper">
                 <div class="box">
                     <div class="content-wrap">
-                        <h6>Sign In</h6>
+                        <h6>Sign In man</h6>
                         <form method="post" action="controller?action=login">
-                            <input class="form-control" type="text" placeholder="E-mail address">
-                            <input class="form-control" type="password" placeholder="Password">
+                            <input class="form-control" type="text" name="email" placeholder="E-mail address">
+                            <input class="form-control" type="password" name="password" placeholder="Password">
                             <div class="action">
                                 <button class="btn btn-primary" type="submit">Login</button>
                             </div>

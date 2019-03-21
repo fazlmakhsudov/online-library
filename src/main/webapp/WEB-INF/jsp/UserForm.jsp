@@ -6,7 +6,7 @@
      <c:if test="${command != null}">
         <title><c:out value='${command}' /></title>
      </c:if>
-     <c:if test="${command != null}">
+     <c:if test="${command == null}">
          <title>Users Store Application</title>
       </c:if>
 </head>
