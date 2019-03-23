@@ -1,6 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.entity.User;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -34,6 +35,7 @@ public class SignupCommand implements Command, Serializable {
             String password = request.getParameter("password");
             String confirm_password = request.getParameter("confirm_password");
             String email = request.getParameter("email");
+            User user = null;
             boolean flag = true;
             if (!password.equals(confirm_password)) {
                 password = "not match";
@@ -41,12 +43,14 @@ public class SignupCommand implements Command, Serializable {
             } else {
                 try {
                     new UserDAO().insertUser(email, password);
+                    user = new UserDAO().getUser(email, password);
                 } catch (SQLException ex) {
                     throw new ServletException(ex);
                 }
             }
-            if (flag) {
+            if (flag&&user != null) {
                 session.setAttribute("userRole", Role.CLIENT);
+                session.setAttribute("userId",user.getId());
                 forward = Path.COMMAND_MAIN;
             } else {
                 forward = Path.PAGE_LOGIN;

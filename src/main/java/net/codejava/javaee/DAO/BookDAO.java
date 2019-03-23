@@ -26,13 +26,14 @@ public class BookDAO {
     }
 
     public boolean insertBook(Book book) throws SQLException {
-        String sql = "INSERT INTO book (title, author, price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO book (title, author, price, user_id) VALUES (?, ?, ?, ?)";
         DBUtil.connect();
 
         PreparedStatement statement = DBUtil.getJdbcConnection().prepareStatement(sql);
         statement.setString(1, book.getTitle());
         statement.setString(2, book.getAuthor());
         statement.setFloat(3, book.getPrice());
+        statement.setInt(4, book.getUser_id());
 
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
@@ -55,8 +56,9 @@ public class BookDAO {
             String title = resultSet.getString("title");
             String author = resultSet.getString("author");
             float price = resultSet.getFloat("price");
+            int user_id = resultSet.getInt("user_id");
 
-            Book book = new Book(id, title, author, price);
+            Book book = new Book(id, title, author, price,user_id);
             listBook.add(book);
         }
 
@@ -83,7 +85,7 @@ public class BookDAO {
     }
 
     public boolean updateBook(Book book) throws SQLException {
-        String sql = "UPDATE book SET title = ?, author = ?, price = ?";
+        String sql = "UPDATE book SET title = ?, author = ?, price = ?, user_id = ?";
         sql += " WHERE book_id = ?";
         DBUtil.connect();
 
@@ -91,7 +93,9 @@ public class BookDAO {
         statement.setString(1, book.getTitle());
         statement.setString(2, book.getAuthor());
         statement.setFloat(3, book.getPrice());
-        statement.setInt(4, book.getId());
+        statement.setInt(4, book.getUser_id());
+
+        statement.setInt(5, book.getId());
 
         boolean rowUpdated = statement.executeUpdate() > 0;
         statement.close();
@@ -114,8 +118,9 @@ public class BookDAO {
             String title = resultSet.getString("title");
             String author = resultSet.getString("author");
             float price = resultSet.getFloat("price");
+            int user_id = resultSet.getInt("user_id");
 
-            book = new Book(id, title, author, price);
+            book = new Book(id, title, author, price,user_id);
         }
 
         resultSet.close();

@@ -41,6 +41,7 @@ public class LoginCommand implements Command, Serializable {
             }
             if (user != null) {
                 session.setAttribute("userRole", user.getRole());
+                session.setAttribute("userId",user.getId());
                 forward = Path.COMMAND_MAIN;
             } else {
                 forward = Path.PAGE_LOGIN;

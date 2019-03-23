@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.entity.Book;
 import net.codejava.javaee.dao.BookDAO;
+import net.codejava.javaee.entity.Book;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -10,6 +10,7 @@ import net.codejava.javaee.web.exception.AppException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -31,7 +32,9 @@ public class CreateBookCommand implements Command {
             String title = request.getParameter("title");
             String author = request.getParameter("author");
             float price = Float.parseFloat(request.getParameter("price"));
-            Book newBook = new Book(title, author, price);
+            HttpSession session = request.getSession(false);
+            int user_id = (Integer) session.getAttribute("userId");
+            Book newBook = new Book(title, author, price, user_id);
             try {
                 new BookDAO().insertBook(newBook);
             } catch (SQLException ex) {
