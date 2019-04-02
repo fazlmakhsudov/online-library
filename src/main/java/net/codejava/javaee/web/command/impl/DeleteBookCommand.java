@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.dao.BookDAO;
+import net.codejava.javaee.service.impl.BookServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -31,7 +31,8 @@ public class DeleteBookCommand implements Command {
 
             Book book = new Book(id);
             try {
-                new BookDAO().deleteBook(book);
+                BookServiceImpl.getInstance().remove(id);
+//                new BookDAO().deleteBook(book);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

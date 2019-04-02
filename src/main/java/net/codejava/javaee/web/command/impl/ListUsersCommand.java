@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -29,7 +29,7 @@ public class ListUsersCommand implements Command {
         if (Method.isGet(request)) {
             forward = Path.PAGE_USER_LIST;
             try {
-                List<User> listUsers = new UserDAO().listAllUsers();
+                List<User> listUsers = UserServiceImpl.getInstance().findAll();//new UserDAO().listAllUsers();
                 request.setAttribute("listUser", listUsers);
             } catch (SQLException ex) {
                 throw new ServletException(ex);

@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -30,7 +30,8 @@ public class DeleteUserCommand implements Command {
             int id = Integer.parseInt(request.getParameter("id"));
             User user = new User(id);
             try {
-                new UserDAO().deleteUser(user);
+                UserServiceImpl.getInstance().remove(id);
+//                new UserDAO().deleteUser(user);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

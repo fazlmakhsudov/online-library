@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class ReadUserCommand implements Command {
@@ -28,10 +27,11 @@ public class ReadUserCommand implements Command {
         String forward;
         // I am not sure what to show
         if (Method.isGet(request)) {
-            forward = Path.PAGE_USER_LIST;
+            forward=Path.PAGE_USER_FORM;
+            int id = Integer.parseInt(request.getParameter("id"));
             try {
-                List<User> listUsers = new UserDAO().listAllUsers();
-                request.setAttribute("listUser", listUsers);
+                User existingUser = UserServiceImpl.getInstance().find(id);
+                request.setAttribute("user", existingUser);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

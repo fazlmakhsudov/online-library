@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.dao.BookDAO;
 import net.codejava.javaee.entity.Book;
+import net.codejava.javaee.service.impl.BookServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -36,7 +36,8 @@ public class CreateBookCommand implements Command {
             int user_id = (Integer) session.getAttribute("userId");
             Book newBook = new Book(title, author, price, user_id);
             try {
-                new BookDAO().insertBook(newBook);
+                BookServiceImpl.getInstance().add(newBook);
+//                new BookDAO().insertBook(newBook);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.dao.BookDAO;
+import net.codejava.javaee.service.impl.BookServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class ReadBookCommand implements Command {
@@ -28,10 +27,11 @@ public class ReadBookCommand implements Command {
         String forward;
         // I am not sure what to show
         if (Method.isGet(request)) {
-            forward = Path.PAGE_BOOK_LIST;
+           forward=Path.PAGE_BOOK_FORM;
+            int id = Integer.parseInt(request.getParameter("id"));
             try {
-                List<Book> listBook = new BookDAO().listAllUsers();
-                request.setAttribute("listBook", listBook);
+                Book existingBook = BookServiceImpl.getInstance().find(id);
+                request.setAttribute("book", existingBook);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

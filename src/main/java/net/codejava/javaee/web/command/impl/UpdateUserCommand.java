@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -34,7 +34,8 @@ public class UpdateUserCommand implements Command {
             String email = request.getParameter("email");
             User user = new User(id, name, password, email);
             try {
-                new UserDAO().updateUser(user);
+                UserServiceImpl.getInstance().save(user);
+//                new UserDAO().updateUser(user);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }
@@ -44,7 +45,7 @@ public class UpdateUserCommand implements Command {
             forward = Path.PAGE_USER_FORM;
             int id = Integer.parseInt(request.getParameter("id"));
             try {
-                User existingUser = new UserDAO().getUser(id);
+                User existingUser = UserServiceImpl.getInstance().find(id);//new UserDAO().getUser(id);
                 request.setAttribute("user", existingUser);
             } catch (SQLException ex) {
                 throw new ServletException(ex);

@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.dao.UserDAO;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -33,7 +33,8 @@ public class CreateUserCommand implements Command {
             String email = request.getParameter("email");
             User newUser = new User(name, password, email);
             try {
-                new UserDAO().insertUser(newUser);
+                UserServiceImpl.getInstance().add(newUser);
+//                new UserDAO().insertUser(newUser);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

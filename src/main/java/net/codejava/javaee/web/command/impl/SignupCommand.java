@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
-import net.codejava.javaee.dao.UserDAO;
 import net.codejava.javaee.entity.User;
+import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -42,8 +42,10 @@ public class SignupCommand implements Command, Serializable {
                 flag = false;
             } else {
                 try {
-                    new UserDAO().insertUser(email, password);
-                    user = new UserDAO().getUser(email, password);
+                    UserServiceImpl.getInstance().add(email,password);
+//                    new UserDAO().insertUser(email, password);
+                    user = UserServiceImpl.getInstance().find(email,password);
+//                    user = new UserDAO().getUser(email, password);
                 } catch (SQLException ex) {
                     throw new ServletException(ex);
                 }
