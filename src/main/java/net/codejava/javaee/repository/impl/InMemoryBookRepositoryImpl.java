@@ -2,13 +2,13 @@ package net.codejava.javaee.repository.impl;
 
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.repository.EntityRepository;
+import net.codejava.javaee.repository.BaseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryBookRepositoryImpl implements EntityRepository<Book> {
+public class InMemoryBookRepositoryImpl implements BaseRepository<Book> {
 
 
     private final Map<Integer, Book> memory;

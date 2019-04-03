@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.service.impl.BookServiceImpl;
+import net.codejava.javaee.service.BookService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -18,6 +18,11 @@ public class DeleteBookCommand implements Command {
     private static final long serialVersionUID = -3071536593627692473L;
 
     private static final Logger LOG = Logger.getLogger("DeleteBookCommand");
+    private BookService bookService;
+
+    public DeleteBookCommand(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -31,8 +36,7 @@ public class DeleteBookCommand implements Command {
 
             Book book = new Book(id);
             try {
-                BookServiceImpl.getInstance().remove(id);
-//                new BookDAO().deleteBook(book);
+                bookService.remove(id);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

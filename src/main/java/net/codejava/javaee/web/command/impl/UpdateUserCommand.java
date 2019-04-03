@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.service.impl.UserServiceImpl;
+import net.codejava.javaee.service.UserService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -16,8 +16,12 @@ import java.util.logging.Logger;
 
 public class UpdateUserCommand implements Command {
     private static final long serialVersionUID = -3071536593627692473L;
-
+    private UserService userService;
     private static final Logger LOG = Logger.getLogger("updateUserCommand");
+
+    public UpdateUserCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -34,8 +38,8 @@ public class UpdateUserCommand implements Command {
             String email = request.getParameter("email");
             User user = new User(id, name, password, email);
             try {
-                UserServiceImpl.getInstance().save(user);
-//                new UserDAO().updateUser(user);
+                userService.save(user);
+
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }
@@ -45,7 +49,7 @@ public class UpdateUserCommand implements Command {
             forward = Path.PAGE_USER_FORM;
             int id = Integer.parseInt(request.getParameter("id"));
             try {
-                User existingUser = UserServiceImpl.getInstance().find(id);//new UserDAO().getUser(id);
+                User existingUser = userService.find(id);
                 request.setAttribute("user", existingUser);
             } catch (SQLException ex) {
                 throw new ServletException(ex);

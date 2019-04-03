@@ -1,6 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
+import net.codejava.javaee.service.UserService;
 import net.codejava.javaee.service.impl.UserServiceImpl;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
@@ -19,8 +20,12 @@ import java.util.logging.Logger;
 public class LoginCommand implements Command, Serializable {
 
     private static final long serialVersionUID = -3071536593627692473L;
-
+    private UserService userService;
     private static final Logger LOG = Logger.getLogger("LoginCommand");
+
+    public LoginCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public final String execute(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -35,7 +40,7 @@ public class LoginCommand implements Command, Serializable {
             String password = request.getParameter("password");
             User user = null;
             try {
-                user = UserServiceImpl.getInstance().find(email, password);//new UserDAO().getUser(email, password);
+                user = userService.find(email, password);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

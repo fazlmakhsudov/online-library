@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.service.impl.UserServiceImpl;
+import net.codejava.javaee.service.UserService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -20,8 +20,12 @@ import java.util.logging.Logger;
 public class SignupCommand implements Command, Serializable {
 
     private static final long serialVersionUID = -3071536593627692473L;
-
+    private UserService userService;
     private static final Logger LOG = Logger.getLogger("MainCommand");
+
+    public SignupCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public final String execute(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -42,17 +46,16 @@ public class SignupCommand implements Command, Serializable {
                 flag = false;
             } else {
                 try {
-                    UserServiceImpl.getInstance().add(email,password);
-//                    new UserDAO().insertUser(email, password);
-                    user = UserServiceImpl.getInstance().find(email,password);
-//                    user = new UserDAO().getUser(email, password);
+                    userService.add(email, password);
+
+                    user = userService.find(email, password);
                 } catch (SQLException ex) {
                     throw new ServletException(ex);
                 }
             }
-            if (flag&&user != null) {
+            if (flag && user != null) {
                 session.setAttribute("userRole", Role.CLIENT);
-                session.setAttribute("userId",user.getId());
+                session.setAttribute("userId", user.getId());
                 forward = Path.COMMAND_MAIN;
             } else {
                 forward = Path.PAGE_LOGIN;

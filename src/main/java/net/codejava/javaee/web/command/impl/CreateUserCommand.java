@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.service.impl.UserServiceImpl;
+import net.codejava.javaee.service.UserService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -18,6 +18,11 @@ public class CreateUserCommand implements Command {
     private static final long serialVersionUID = -3071536593627692473L;
 
     private static final Logger LOG = Logger.getLogger("CreateUserCommand");
+    private UserService userService;
+
+    public CreateUserCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -33,8 +38,7 @@ public class CreateUserCommand implements Command {
             String email = request.getParameter("email");
             User newUser = new User(name, password, email);
             try {
-                UserServiceImpl.getInstance().add(newUser);
-//                new UserDAO().insertUser(newUser);
+                userService.add(newUser);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
             }

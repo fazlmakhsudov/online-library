@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.service.impl.BookServiceImpl;
+import net.codejava.javaee.service.BookService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -19,6 +19,11 @@ public class UpdateBookCommand implements Command {
     private static final long serialVersionUID = -3071536593627692473L;
 
     private static final Logger LOG = Logger.getLogger("updateBookCommand");
+    private BookService bookService;
+
+    public UpdateBookCommand(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -35,10 +40,10 @@ public class UpdateBookCommand implements Command {
             float price = Float.parseFloat(request.getParameter("price"));
             HttpSession session = request.getSession(false);
             int user_id = (Integer) session.getAttribute("userId");
-            Book book = new Book(id, title, author, price,user_id);
+            Book book = new Book(id, title, author, price, user_id);
 
             try {
-                BookServiceImpl.getInstance().save(book);
+                bookService.save(book);
 //                new BookDAO().updateBook(book);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
@@ -50,7 +55,7 @@ public class UpdateBookCommand implements Command {
             int id = Integer.parseInt(request.getParameter("id"));
 
             try {
-                Book existingBook = BookServiceImpl.getInstance().find(id);//new BookDAO().getBook(id);
+                Book existingBook = bookService.find(id);
                 request.setAttribute("book", existingBook);
             } catch (SQLException ex) {
                 throw new ServletException(ex);

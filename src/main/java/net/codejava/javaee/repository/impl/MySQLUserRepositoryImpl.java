@@ -2,7 +2,7 @@ package net.codejava.javaee.repository.impl;
 
 
 import net.codejava.javaee.entity.User;
-import net.codejava.javaee.repository.EntityRepository;
+import net.codejava.javaee.repository.UserRepository;
 import net.codejava.javaee.util.DBUtil;
 import net.codejava.javaee.web.filter.Role;
 
@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLUserRepositoryImpl implements EntityRepository<User> {
+public class MySQLUserRepositoryImpl implements UserRepository {
 
 
     private final DBUtil dbUtil;
@@ -102,7 +102,7 @@ public class MySQLUserRepositoryImpl implements EntityRepository<User> {
 
         resultSet.close();
         statement.close();
-
+        System.out.println(user);
         return user;
     }
 

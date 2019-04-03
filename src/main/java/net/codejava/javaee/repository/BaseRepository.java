@@ -4,7 +4,7 @@ package net.codejava.javaee.repository;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface EntityRepository<T> {
+public interface BaseRepository<T> {
     /**
      *
      * Creates product in respective repository.

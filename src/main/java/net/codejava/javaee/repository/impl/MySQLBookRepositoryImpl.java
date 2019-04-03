@@ -2,7 +2,7 @@ package net.codejava.javaee.repository.impl;
 
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.repository.EntityRepository;
+import net.codejava.javaee.repository.BookRepository;
 import net.codejava.javaee.util.DBUtil;
 
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLBookRepositoryImpl implements EntityRepository<Book> {
+public class MySQLBookRepositoryImpl implements BookRepository {
 
 
     private final DBUtil dbUtil;

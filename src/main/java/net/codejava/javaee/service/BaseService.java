@@ -4,7 +4,7 @@ package net.codejava.javaee.service;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface EntityService<T> {
+public interface BaseService<T> {
 
     int add(T item) throws SQLException;
 

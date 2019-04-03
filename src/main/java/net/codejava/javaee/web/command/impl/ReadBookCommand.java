@@ -1,7 +1,7 @@
 package net.codejava.javaee.web.command.impl;
 
 import net.codejava.javaee.entity.Book;
-import net.codejava.javaee.service.impl.BookServiceImpl;
+import net.codejava.javaee.service.BookService;
 import net.codejava.javaee.util.Method;
 import net.codejava.javaee.util.Path;
 import net.codejava.javaee.web.command.Command;
@@ -18,6 +18,11 @@ public class ReadBookCommand implements Command {
     private static final long serialVersionUID = -3071536593627692473L;
 
     private static final Logger LOG = Logger.getLogger("readBookCommand");
+    private BookService bookService;
+
+    public ReadBookCommand(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -30,7 +35,7 @@ public class ReadBookCommand implements Command {
            forward=Path.PAGE_BOOK_FORM;
             int id = Integer.parseInt(request.getParameter("id"));
             try {
-                Book existingBook = BookServiceImpl.getInstance().find(id);
+                Book existingBook = bookService.find(id);
                 request.setAttribute("book", existingBook);
             } catch (SQLException ex) {
                 throw new ServletException(ex);
